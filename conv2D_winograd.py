@@ -45,9 +45,9 @@ class Winograd(object):
         m = 2
         a = m + r - 1
         # TODO pad with zeros the input for perfect tiling and slice the output.
-        if a % m != 0:
-            raise Exception("Only the tiling of 4x4 of the input is accepted.")
         overlap = r - 1
+        if (H >= 4 and H % 2 == 0) is False:
+            raise Exception("Only input for perfect tiling is supported.")
         input = torch.transpose(input, 0, 1)
         assert input.size() == (C, N, H, W)
         # ntile = int(math.ceil(H//a))
