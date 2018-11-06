@@ -7,6 +7,10 @@ import torch
 from torch import tensor
 from conv2D_winograd import Winograd
 
+"""
+author: Adam Dziedzic ady@uchicago.edu
+"""
+
 
 class TestPyTorchConv1d(unittest.TestCase):
 
@@ -37,7 +41,7 @@ class TestPyTorchConv1d(unittest.TestCase):
         x = torch.randint(-3, 3, (2, 3, 6, 6), dtype=torch.float)
         y = torch.randint(-3, 3, (3, 3, 3, 3), dtype=torch.float)
         expect = torch.nn.functional.conv2d(x, y)
-        result = Winograd.main(x, y)
+        result = Winograd.forward(x, y)
         np.testing.assert_array_almost_equal(
             x=expect, y=result,
             err_msg="The expected array x and computed y are not almost equal.")

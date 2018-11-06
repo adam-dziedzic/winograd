@@ -2,6 +2,12 @@ import sys
 import torch
 from torch import tensor
 
+"""
+author: Adam Dziedzic ady@uchicago.edu
+
+Based on the paper: https://arxiv.org/abs/1509.09308
+"""
+
 
 class Winograd(object):
     B = tensor(
@@ -29,7 +35,7 @@ class Winograd(object):
             self.filter = filter_value
 
     @staticmethod
-    def main(input, filter):
+    def forward(input, filter):
         """
         Compute Winograd convolution.
 
@@ -74,6 +80,7 @@ class Winograd(object):
             for b in range(P):
                 for c in range(C):
                     M[k, b] += U[k, c] * V[c, b]
+        # M = torch.matmul(U, V)
         out_size = H - r + 1
         Y = torch.zeros(K, N, out_size, out_size)
         for k in range(K):
